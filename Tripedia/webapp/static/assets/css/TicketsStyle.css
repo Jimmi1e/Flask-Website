@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One');
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Fjalla One', sans-serif;
+}
+*:focus {
+    outline: none;
+}
+.boards{
+  /*display:flex;*/
+  height: 330px;
+/*   border:1px solid; */
+  margin-top : 16px;
+  padding:20px;
+  box-shadow:0 0 10px #2323;
+  /* justify-content:center;
+  align-items:center; */
+}
+.center{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.vcenter{
+  display:flex;
+  align-items:center;
+}
+.flightResults{
+  width:800px;
+  margin:0 auto;
+}
+.flightResult{
+  height:120px;
+/*   border:1px solid; */
+  margin-top : 16px;
+  padding:20px;
+  box-shadow:0 0 10px #2323;
+}
+.label{
+  font-size:11px;
+  letter-spacing:3px;
+  padding:4px 0;
+  color:#bdc3c7;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.value{
+  letter-spacing:2px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.infoDiv{
+  width:120px;
+  padding-left:12px;
+}
+.timeline{
+  width:150px;
+}
+.symbol{
+  height:40px;
+  border-bottom:2px solid;
+}
+.symbol > img{
+  height:25px;
+}
+.duration{
+  padding:10px;
+  font-size:14px;
+  letter-spacing:3px;
+}

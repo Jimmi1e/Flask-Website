@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tripedia</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='new_icons.ico') }}">
+    <link rel="stylesheet" href="html&css.css">
+</head>
+<body>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('.edit-button').click(function() {
+        const wrapper = $(this).closest('.field-wrapper');
+        wrapper.find('.display-value').hide();
+        wrapper.find('.edit-input').show().focus();
+        $(this).hide();
+        wrapper.find('.save-button').show();
+    });
+
+    $('.save-button').click(function() {
+        const wrapper = $(this).closest('.field-wrapper');
+        let newValue = wrapper.find('.edit-input').val();
+
+        if(newValue === "") {
+            newValue = wrapper.find('.display-value').text();
+            wrapper.find('.edit-input').val(newValue);
+        }
+
+        wrapper.find('.display-value').text(newValue).show();
+        wrapper.find('.edit-input').hide();
+        $(this).hide();
+        wrapper.find('.edit-button').show();
+    });
+});
+</script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            height: 100%;
+        }
+        body {
+            height: 100%;
+        }
+        .container {
+            height: 100%;
+            background-image: url("../static/img/Register.jpg");
+            background-position: center bottom;
+            background-repeat: no-repeat;
+        }
+        .login-wrapper {
+            background-color: bisque;
+            width: 358px;
+            height: 688px;
+            border-radius: 15px;
+            padding: 0 50px;
+            position: relative;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            opacity: 0.85;
+        }
+        .header {
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 90px;
+        }
+        .input-item {
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
+            border: 0;
+            padding: 10px;
+            border-bottom: 1px solid rgb(128,125,125);
+            font-size: 15px;
+            outline: none;
+        }
+        .input-item::placeholder {
+            text-transform: uppercase;
+        }
+        .btn {
+
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+            margin-top: 40px;
+            background-image: linear-gradient(to right,#a6c1ee, #fbc2eb);
+            color: #fff;
+        }
+        .msg {
+            text-align: center;
+            line-height: 88px;
+        }
+        a {
+            text-decoration-line: none;
+            color: #abc1ee;
+        }
+        .flashes {
+            left: auto;ist-style-type: none;
+             padding: 0;
+        }
+
+.flashes .error {
+    color: red;
+}
+    </style>
+<div class="container">
+    <div class="login-wrapper">
+       <div class="header">
+        <p>Edit your Information</p>
+    </div>
+        <div class="form-wrapper">
+    <form action="/edit_profile" method="post">
+
+
+        <div class="field-wrapper">
+            <label>Name: </label>
+            <span class="display-value" id="display-name">{{ user_data['name'] }}</span>
+            <input type="text" name="name" id="edit-name" class="edit-input" value="{{ user_data['name'] }}" style="display:none;">
+            <button type="button" class="edit-button">Edit</button>
+            <button type="button" class="save-button" style="display:none;">Done</button>
+        </div>
+
+
+        <div class="field-wrapper">
+            <label>Phone&nbsp;Number: </label>
+            <span class="display-value" id="display-phone">{{ user_data['phone'] }}</span>
+            <input type="text" name="phone" id="edit-phone" class="edit-input" value="{{ user_data['phone'] }}" style="display:none;">
+            <button type="button" class="edit-button">Edit</button>
+            <button type="button" class="save-button" style="display:none;">Done</button>
+        </div>
+
+
+        <div class="field-wrapper">
+            <label>Email: </label>
+            <span class="display-value" id="display-email">{{ user_data['email'] }}</span>
+            <input type="email" name="email" id="edit-email" class="edit-input" value="{{ user_data['email'] }}" style="display:none;">
+            <button type="button" class="edit-button">Edit</button>
+            <button type="button" class="save-button" style="display:none;">Done</button>
+        </div>
+
+
+        <div class="field-wrapper">
+            <label>Gender: </label>
+            <span class="display-value" id="display-sex">{{ user_data['sex'] }}</span>
+            <select name="sex" id="edit-sex" class="edit-input" style="display:none;">
+                <option value="male" {{ 'selected' if user_data['sex'] == 'male' else '' }}>Male</option>
+                <option value="female" {{ 'selected' if user_data['sex'] == 'female' else '' }}>Female</option>
+                <option value="non-binary" {{ 'selected' if user_data['sex'] == 'non-binary' else '' }}>Non-binary</option>
+                <option value="genderqueer" {{ 'selected' if user_data['sex'] == 'genderqueer' else '' }}>Genderqueer</option>
+                <option value="genderfluid" {{ 'selected' if user_data['sex'] == 'genderfluid' else '' }}>Genderfluid</option>
+                <option value="unknown" {{ 'selected' if user_data['sex'] == 'unknown' else '' }}>Unknown</option>
+
+            </select>
+            <button type="button" class="edit-button">Edit</button>
+            <button type="button" class="save-button" style="display:none;">Done</button>
+        </div>
+
+        <div class="field-wrapper">
+            <label>Age: </label>
+            <span class="display-value" id="display-age">{{ user_data['age'] }}</span>
+            <input type="number" name="age" id="edit-age" class="edit-input" value="{{ user_data['age'] }}" style="display:none;">
+            <button type="button" class="edit-button">Edit</button>
+            <button type="button" class="save-button" style="display:none;">Done</button>
+        </div>
+
+        <!-- Secret Field -->
+        <div class="field-wrapper">
+            <label>Secret&nbsp;Question: </label>
+            <span class="display-value" id="display-secret">{{ user_data['secret'] }}</span>
+            <input type="text" name="secret" id="edit-secret" class="edit-input" value="{{ user_data['secret'] }}" style="display:none;">
+            <button type="button" class="edit-button">Edit</button>
+            <button type="button" class="save-button" style="display:none;">Done</button>
+        </div>
+
+        <!-- Submit Button -->
+        <input type="submit" value="Save!">
+
+    </form>
+        </div>
+
+    </div>
+    </div>
+
+</div>
+</body>
+</html>

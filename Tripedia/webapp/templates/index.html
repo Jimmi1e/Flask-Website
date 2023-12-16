@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tripedia</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='new_icons.ico') }}">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <link rel="stylesheet" href="../static/assets/css/SearchBox.css">
+    <link rel="stylesheet" href="../static/assets/css/fonts.css" />
+    <link rel="stylesheet" href="../static/assets/css/reset.css" />
+    <link rel="stylesheet" href="../static/assets/css/style.css" />
+    <link rel="stylesheet" href="../static/assets/css/responsive.css" />
+    <link rel="stylesheet" href="../static/assets/css/fontawesome.css" />
+
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <div id="menu">
+          <i class="fas fa-bars"></i>
+        </div>
+        <div id="logo">
+          <a href="#"><img src="../static/assets/img/icons/Tripedialogo.png"  alt="Tripedia" /></a>
+        </div>
+        <div class="search-group">
+            <form id='search-form' method="post" action="/search_destination">
+          <input
+                  id="search-box1"
+            type="text"
+            name="destination"
+            class="search"
+            placeholder="Searching Is Not Available"
+          />
+          <i class="fas fa-search"></i>
+            <input type="submit" class="link blackbutton1" value="SEARCH"></input>
+                </form>
+        </div>
+
+            <div class="links">
+
+                {% if 'username' not in session %}
+                    <a href="/login" class="link blackbutton">
+                    <span>Login</span>
+                    </a>
+                    <a href="/register" class="link blackbutton">
+                    <span>Register</span>
+                    </a>
+                {% else %}
+                <span>Welcome, {{ session['username'] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <a href="/edit_profile" class="link blackbutton">
+                    <span>Edit Info</span>
+                    </a>
+                <a href="/logout" class="link blackbutton">
+                    <span>Logout</span>
+                </a>
+
+                {% endif %}
+            </div>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section>
+          <div id="autocomplete-list"></div>
+        <h1 class="title">
+          <span>Tripedia</span><span class="black">Your travel expert🏖️</span>
+        </h1>
+        <nav id="activities">
+          <a href="#lastActivity" class="scroll hide">
+            <i class="fas fa-chevron-right scroll"></i>
+          </a>
+            <a href="/moments" class="activity">
+            <div>Travel Moments📷</div>
+            <i class="fas fa-hotel"></i>
+          </a>
+          <a href="#" class="activity">
+            <div>Hotels🏨</div>
+            <i class="fas fa-hotel"></i>
+          </a>
+          <a id="Tourist_Destinations" href="#" class="activity" onclick="return checkUsername();">
+            <div>Tourist Destinations📍</div>
+            <i class="fas fa-hiking"></i>
+          </a>
+            <a href="#" class="activity">
+            <div>Tickets🎟️</div>
+            <i class="fas fa-hiking"></i>
+          </a>
+            <a href="#" class="activity" onclick="return checkUsername();">
+            <div>Recommendations⭐</div>
+            <i class="fas fa-hiking"></i>
+          </a>
+        </nav>
+        <div class="gallery">
+          <img src="../static/assets/img/oldport2.jpg" alt="oldport2" class="main" />
+          <div class="photos">
+            <img src="../static/assets/img/montroyal.jpg" alt="montroyal" />
+            <img src="../static/assets/img/oldport.jpg" alt="oldport" />
+          </div>
+          <div class="allpictures">
+            <a href="#" class="link blackbutton">
+              <i class="fas fa-images"></i> See all photos
+            </a>
+          </div>
+        </div>
+      </section>
+    <footer id="footer">
+      <a href="#" id="contact">Contact Us</a>
+      <a href="#">Group 7</a> - 2023
+    </footer>
+    <div class="modal" id="modal">
+      <div
+        class="modal-dialog modal-dialog-centered fade-scale"
+        role="document"
+      >
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Enter Message</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body center">
+            <form method="post" class="autoform">
+              <input type="text" name="firstname" placeholder="First Name" />
+              <input type="text" name="lastname" placeholder="Surname" />
+              <input type="email" name="email" placeholder="xxxx@xxxxx.COM" />
+              <textarea
+                name="message"
+                id=""
+                cols="30"
+                rows="10"
+                placeholder="Send Message"
+              ></textarea>
+              <input type="submit" value="Submit" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{#    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>#}
+    <script src="../static/assets/js/main.js"></script>
+        <script>
+            jQuery.noConflict();
+            jQuery(document).ready(function() {
+                    jQuery('#search-box1').on('input', function() {
+                        var query = jQuery(this).val();
+                        jQuery.get('/autocomplete2?query=' + query, function(data) {
+                            var autocompleteList = jQuery('#autocomplete-list');
+                            autocompleteList.empty();
+                            data.forEach(function(option) {
+                                var listItem = jQuery('<li><span class="bold-text">'+option['label1']+'</span> - <span class="gray-text">' + option['label2'] + '</span> </li>');
+                                listItem.click(function() {
+                                    jQuery('#search-box1').val(option['label1']);
+                                    autocompleteList.empty();
+                                });
+                                autocompleteList.append(listItem);
+                            });
+                        });
+                    });
+                });
+            function checkUsername() {
+                var username = "{{ session.get('username') }}";
+                if (username=== "None") {
+                  alert('Please Login!');
+                  return false;
+                }
+
+                return true;
+              }
+</script>
+  </main>
+  </body>
+</html>

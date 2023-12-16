@@ -1,0 +1,237 @@
+@media (max-width: 1200px) {
+  .container {
+    margin-left: 20px;
+    margin-right: 20px;
+    z-index: 99;
+  }
+}
+
+@media (max-width: 1200px) {
+  #activities {
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  #activities .activity {
+    flex: inherit;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    margin-left: 0;
+  }
+
+  #activities .activity.ship {
+    display: flex;
+  }
+}
+
+@media (max-width: 1024px) {
+  header .links .link:not(.blackbutton) {
+    min-width: 0;
+  }
+  header .links .link:not(.blackbutton) span {
+    display: none;
+  }
+  .city .about-city {
+    display: block;
+  }
+  .city .about-city .trip {
+    margin-top: 50px;
+    flex-direction: row;
+  }
+  .city .about-city .trip .start {
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 10px;
+    max-height: 248px;
+  }
+  .city .about-city .trip .picture {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 0;
+    height: 248px;
+  }
+}
+
+@media (max-width: 768px) {
+  header.container {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  header nav {
+    justify-content: space-between;
+  }
+
+  header #menu {
+    display: inherit;
+    align-self: center;
+  }
+  header #logo img {
+    display: block;
+    width: 132px;
+    height: 100%;
+  }
+  header .links {
+    display: none;
+  }
+  header .search-group {
+    width: auto;
+  }
+  header .search {
+    display: none;
+  }
+  header .search-group .icon,
+  header .search-group .fas {
+    cursor: pointer;
+    position: relative;
+    left: inherit;
+    top: inherit;
+  }
+
+  .gallery {
+    height: 280px;
+    display: block;
+    width: 100vw;
+    position: relative;
+    margin-left: -50vw;
+    left: 50%;
+  }
+
+  #activities {
+    display: flex;
+    grid-gap: inherit;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    overflow-x: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    margin-bottom: 10px;
+  }
+
+  #activities .next::after {
+    content: " ";
+    right: 0;
+    top: 0;
+    position: absolute;
+    height: 100%;
+    background: linear-gradient(270deg, #fff 16px, hsla(0, 0%, 100%, 0));
+    text-align: right;
+    transition: opacity 0.1s linear;
+    width: 169px;
+  }
+
+  #activities::-webkit-scrollbar {
+    display: none;
+  }
+
+  #activities .activity {
+    flex-shrink: 0;
+    width: auto;
+    height: auto;
+  }
+
+  #activities .activity div {
+    margin-right: 7px;
+  }
+
+  #activities .activity + .activity {
+    margin-left: 15px !important;
+  }
+  .gallery .photos {
+    display: none;
+  }
+  .city .about-city .text p {
+    padding-right: 0;
+  }
+  .location,
+  .locate {
+    display: none !important;
+  }
+  .city .about-city .trip {
+    flex-direction: column;
+  }
+  .city .about-city .trip .picture {
+    height: 180px;
+  }
+  .musthave .elements-content {
+    width: 100%;
+  }
+  .musthave .list-do > .card {
+    display: none;
+  }
+
+  .musthave .list-do .card img {
+    height: 200px;
+  }
+
+  .elements-content .fas,
+  .elements-content .icon {
+    top: 85px;
+  }
+
+  .elements-content .fas.previous,
+  .elements-content .icon.previous {
+    left: 5px;
+  }
+
+  .elements-content .fas.next,
+  .elements-content .icon.next {
+    right: 5px;
+  }
+
+  .guide .elements .card .plain img {
+    height: 200px;
+  }
+  .list-do .elements .card {
+    width: calc((100% / 3) - (30px / 3));
+  }
+
+  .forum .card {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  /* Rules */
+}
+
+/* ------------------------------
+/*  -------     MODAL     -------
+/* -----------------------------*/
+
+@media (min-width: 768px) {
+  .modal .modal-dialog {
+    width: 600px;
+    margin: 20px auto;
+  }
+  .modal .modal-content {
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  }
+  .modal .modal-sm {
+    width: 300px;
+  }
+}
+@media (min-width: 992px) {
+  .modal .modal-lg {
+    width: 900px;
+  }
+}
+@media (min-width: 576px) {
+  .modal .modal-dialog-centered {
+    min-height: calc(100% - (1.75rem * 2));
+  }
+}
+
+@media (min-width: 576px) {
+  .modal .modal-dialog-centered {
+    min-height: calc(100% - (1.75rem * 2));
+  }
+}
+@media (max-height: 550px) {
+  .modal .modal-body {
+    max-height: 350px;
+    overflow-y: auto;
+  }
+}

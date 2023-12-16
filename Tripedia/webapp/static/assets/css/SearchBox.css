@@ -1,0 +1,41 @@
+  #autocomplete-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+#autocomplete-list li {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#autocomplete-list li:hover {
+    background-color: #f0f0f0;
+}
+
+#autocomplete-list li:last-child {
+    border-bottom: none;
+}
+
+/* 样式化输入框 */
+#search-box {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+}
+
+/* 样式化搜索按钮 */
+#search-button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}

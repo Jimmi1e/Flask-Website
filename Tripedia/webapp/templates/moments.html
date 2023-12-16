@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tripedia</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='new_icons.ico') }}">
+    <style>
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom right, #40aed3, #cb759c);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-attachment: fixed;
+}
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .moment {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .timestamp {
+            color: #888;
+            font-size: 14px;
+        }
+
+        img {
+            display: block;
+            max-width: 70%;
+            height: auto;
+            margin: 10px auto;
+        }
+
+        .separator {
+            border-top: 1px solid #ddd;
+            margin-top: 20px;
+        }
+
+        .text-box {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .upload-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .upload-button:hover {
+            background-color: #0056b3;
+        }
+        .uploaded-by {
+            font-weight: bold;
+        }
+
+        .username {
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            color: transparent;
+            display: inline;
+        }
+        #add-moment-btn {
+
+            display: block;
+            margin: 0 auto;
+
+        }
+        video {
+        display: block;
+        max-width: 70%;
+        height: auto;
+        margin: 10px auto;
+    }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎡Travel Moments🗼</h1>
+        {% if 'username' not in session %}
+        <p>You are not logged in. Please log in to upload Moments.</p>
+        <a href="/login" class="link blackbutton">
+            <span>Login</span>
+        </a>
+        {% else %}
+    <div class="text-box">
+        <h3 align="center">Wanna post your own Moment?📷</h3>
+        <button id="add-moment-btn" class="upload-button">Click here to add a Moment</button>
+        <div id="new-moment-form" style="display: none;">
+            <h4>Add New Moment🗪</h4>
+            <form action="/upload_moment" method="POST" enctype="multipart/form-data">
+                <label for="text">To tell something about your trip(You could only upload 1 picture~):</label>
+                <textarea id="text" name="text" rows="4" cols="50"></textarea>
+                <br>
+                <label for="image">Please Upload One Image📷:</label>
+                <input type="file" id="image" name="image">
+                <br>
+                <br>
+                <input type="submit" value="Upload" class="upload-button">
+            </form>
+        </div>
+    </div>
+        {% endif %}
+        <div id="moments-container">
+            {% for moment in moments %}
+            <div class="moment">
+                <p class="uploaded-by">Uploaded by🎅: <span class="username">{{ moment.username }}</span></p>
+                <div class="timestamp">Uploaded Time🕒: {{ moment.create_at }}</div>
+                <p>{{ moment.text }}</p>
+                {% set file_ext = moment.image_url.split('.')[-1].lower() %}
+                {% if file_ext in ['jpg', 'jpeg', 'png', 'gif'] %}
+                <img src="{{ url_for('static', filename=moment.image_url) }}" alt="Moment Image" class="center">
+                {% elif file_ext in ['mp4', 'mov', 'avi'] %}
+                <video controls class="center">
+                <source src="{{ url_for('static', filename=moment.image_url) }}" type="video/mp4">
+                Your browser does not support the video tag.
+                </video>
+    {% endif %}
+            </div>
+            <hr class="separator">
+            {% endfor %}
+        </div>
+    </div>
+<SCRIPT>document.getElementById('add-moment-btn').addEventListener('click', function() {
+    var form = document.getElementById('new-moment-form');
+    if (form.style.display === 'none') {
+        form.style.display = 'block';
+    } else {
+        form.style.display = 'none';
+    }
+});</SCRIPT>
+</body>
+</html>
